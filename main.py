@@ -7,6 +7,7 @@
 
 #pygame documentation: https://www.pygame.org/docs/ref/pygame.html
 
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -37,12 +38,17 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        for things in updatable:    
-            things.update(dt)   #make the player rotate
+        for obj in updatable:    
+            obj.update(dt)   #make the player rotate, move, spawn astroids,
+
+        for asteroid in asteroids:  #check if there is collision with player
+            if player.collision(asteroid):
+                print("Game over!")
+                sys.exit() #exit the game immediatly
 
         screen.fill("black") #filling that window in black
-        for things in drawable:
-            things.draw(screen) #add the player on the screen
+        for obj in drawable:
+            obj.draw(screen) #add the player on the screen
         pygame.display.flip() #Use pygame's display.flip() method to refresh the screen. Be sure to call this last!
 
         dt = clock.tick(60) / 1000 # limit the framerate to 60 FPS
