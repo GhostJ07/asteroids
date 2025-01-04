@@ -44,10 +44,15 @@ def main():
         for obj in updatable:    
             obj.update(dt)   #make the player rotate, move, spawn astroids,
 
-        for asteroid in asteroids:  #check if there is collision with player
-            if player.collision(asteroid):
+        for asteroid in asteroids:  
+            if player.collision(asteroid): #check if there is collision with player
                 print("Game over!")
                 sys.exit() #exit the game immediatly
+            for shot in shots:
+                if shot.collision(asteroid): #check if bullet hits
+                    shot.kill()
+                    asteroid.kill()
+
 
         screen.fill("black") #filling that window in black
         for obj in drawable:
