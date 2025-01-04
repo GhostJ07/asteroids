@@ -10,6 +10,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     
@@ -17,11 +19,15 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)); #setting the screen size of the 'window'
     clock = pygame.time.Clock() #creating a clock to make 60fps
 
-    updatable = pygame.sprite.Group()
+    updatable = pygame.sprite.Group() #create the groupes first before allocating them
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
-    Player.containers = (updatable, drawable)
+    Player.containers = (updatable, drawable) #Note: After changing a static field like containers, make sure to create all Player objects after the change. This way, they will be correctly added to the groups.
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
+    asteroid_field = AsteroidField()
     player = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
 
     dt = 0
