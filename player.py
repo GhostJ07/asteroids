@@ -24,13 +24,24 @@ class Player (CircleShape):
     def rotate(self, dt): #adds rotation speed
         self.rotation +=  PLAYER_TURN_SPEED * dt
 
-    def update(self, dt): #when pressing 'a' or 'd' to rotate the player
+    def move(self,dt): #the ship will move back and forth with W and S keys
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt 
+
+    def update(self, dt): #when pressing 'a' or 'd' or 'w' or 's' to rotate the player
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
+
+
+
     
     
         
