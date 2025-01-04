@@ -23,10 +23,11 @@ def main():
         for event in pygame.event.get(): #This will check if the user has closed the window and exit the game loop if they do. It will make the window's close button work.
             if event.type == pygame.QUIT:
                 return
-        
-        screen.fill("black") #filling that window in black
-        player.draw(screen)
+        player.update(dt) #make the player rotate
 
+
+        screen.fill("black") #filling that window in black
+        player.draw(screen) #add tje player on the screen
         pygame.display.flip() #Use pygame's display.flip() method to refresh the screen. Be sure to call this last!
 
         dt = clock.tick(60) / 1000 # limit the framerate to 60 FPS
